@@ -1,18 +1,14 @@
 /**
-* @name Freemoji
-* @displayName Freemoji
+* @name Freemojis
+* @displayName Freemojis
 * @description Send emoji external emoji and animated emoji without Nitro.
-* @author Qb, An0
-* @authorId 133659541198864384
-* @license LGPLv3 - https://www.gnu.org/licenses/lgpl-3.0.txt
-* @version 1.5.3
-* @invite gj7JFa6mF8
-* @source https://github.com/QbDesu/BetterDiscordAddons/blob/potato/Plugins/Freemoji
+* @author Zenz
 * @updateUrl https://raw.githubusercontent.com/QbDesu/BetterDiscordAddons/potato/Plugins/Freemoji/Freemoji.plugin.js
+* @version 1.5.3
 */
 /*@cc_on
 @if (@_jscript)
-    
+
     // Offer to self-install for clueless users that try to run this directly.
     var shell = WScript.CreateObject("WScript.Shell");
     var fs = new ActiveXObject("Scripting.FileSystemObject");
@@ -37,25 +33,24 @@
 module.exports = (() => {
     const config = {
         info: {
-            name: 'Freemoji',
+            name: 'Freemojis',
             authors: [
                 {
-                    name: 'Qb',
-                    discord_id: '133659541198864384',
-                    github_username: 'QbDesu'
+                    name: 'Zenz',
+                    github_username: 'csgo fever'
                 },
                 {
-                    name: 'An0',
-                    github_username: 'An00nymushun'
+                    name: 'Skidded from An0 and Qb',
+                    github_username: 'csgo fever'
                 }
             ],
-            version: '1.5.3',
+            version: '1.0.0',
             description: 'Send emoji external emoji and animated emoji without Nitro.',
             github: 'https://github.com/QbDesu/BetterDiscordAddons/blob/potato/Plugins/Freemoji',
             github_raw: 'https://raw.githubusercontent.com/QbDesu/BetterDiscordAddons/potato/Plugins/Freemoji/Freemoji.plugin.js'
         },
         changelog: [
-            { title: 'Bug Fixes', type: 'fix', items: ['Fixed detection of missing embed permissions.'] }
+            { title: 'Skidded', type: 'fix', items: ['BY ZENZ | SKIDDED FROM Qb AND An0'] }
         ],
         defaultConfig: [
             {
@@ -163,7 +158,7 @@ module.exports = (() => {
     return !global.ZeresPluginLibrary ? class {
         constructor() { this._config = config; }
         load() {
-            BdApi.showConfirmationModal('Library plugin is needed', 
+            BdApi.showConfirmationModal('Library plugin is needed',
                 [`The library plugin needed for ${config.info.name} is missing. Please click Download Now to install it.`], {
                 confirmText: 'Download',
                 cancelText: 'Cancel',
@@ -194,10 +189,10 @@ module.exports = (() => {
                     UserStore,
                     SelectedChannelStore,
                     ChannelStore,
-                    DiscordConstants: { 
+                    DiscordConstants: {
                         EmojiDisabledReasons,
                         EmojiIntention
-                    } 
+                    }
                 }
             } = Api;
 
@@ -275,7 +270,7 @@ module.exports = (() => {
 
                                 if (self.settings.external == 'showDialog') {
                                     BdApi.showConfirmationModal(
-                                        "Sending External Emoji", 
+                                        "Sending External Emoji",
                                         [`It looks like you are trying to send an an External Emoji in a server that would normally allow it. Do you still want to send it?`], {
                                         confirmText: "Send External Emoji",
                                         cancelText: "Cancel",
@@ -292,7 +287,7 @@ module.exports = (() => {
 
                                 if (self.settings.external == 'showDialog') {
                                     BdApi.showConfirmationModal(
-                                        "Sending Unavailable Emoji", 
+                                        "Sending Unavailable Emoji",
                                         [`It looks like you are trying to send an an Emoji that would normally even be unavailable to Nitro users. Do you still want to send it?`], {
                                         confirmText: "Send Unavailable Emoji",
                                         cancelText: "Cancel",
@@ -303,7 +298,7 @@ module.exports = (() => {
                                     return;
                                 }
                                 self.selectEmoji({emoji, isFinalSelection, onSelectEmoji, closePopout, selectedChannel, disabled: true});
-                                
+
                             } else {
 
                                 self.selectEmoji({emoji, isFinalSelection, onSelectEmoji, closePopout, selectedChannel, disabled: data.isDisabled});
@@ -328,10 +323,10 @@ module.exports = (() => {
                 selectEmoji({emoji, isFinalSelection, onSelectEmoji, closePopout, selectedChannel, disabled}) {
                     if (disabled) {
                         const perms = this.hasEmbedPerms(selectedChannel);
-                        if (!perms && this.settings.missingEmbedPerms == 'nothing') return; 
+                        if (!perms && this.settings.missingEmbedPerms == 'nothing') return;
                         if (!perms && this.settings.missingEmbedPerms == 'showDialog') {
                             BdApi.showConfirmationModal(
-                                "Missing Image Embed Permissions", 
+                                "Missing Image Embed Permissions",
                                 [`It looks like you are trying to send an Emoji using Freemoji but you dont have the permissions to send embeded images in this channel. You can choose to send it anyway but it will only show as a link.`], {
                                 confirmText: "Send Anyway",
                                 cancelText: "Cancel",
@@ -353,7 +348,7 @@ module.exports = (() => {
                     } else {
                         onSelectEmoji(emoji, isFinalSelection);
                     }
-                    
+
                     if(isFinalSelection) closePopout();
                 }
 
@@ -392,11 +387,11 @@ module.exports = (() => {
                         console.error(e);
                     }
                 }
-                
+
                 onStop() {
                     this.cleanup();
                 }
-            
+
                 getSettingsPanel() {
                     const panel = this.buildSettingsPanel();
                     panel.addListener(() => {
